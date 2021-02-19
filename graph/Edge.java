@@ -3,15 +3,16 @@ package graph;
 import java.util.Random;
 
 public class Edge implements  Comparable<Edge> {
-    private Node start;
+    private final Node start;
     private final Node end;
     private int weight;
+    private static final int MAX_WEIGHT = 10;
 
     public Edge(Node start, Node end) {
         Random rand = new Random();
         this.start = start;
         this.end = end;
-        this.weight = rand.nextInt(11) + 1;
+        this.weight = rand.nextInt(MAX_WEIGHT) + 1;
     }
 
     public Edge(Node start, Node end, int weight) {
