@@ -33,12 +33,13 @@ public class Edge implements  Comparable<Edge> {
         return weight;
     }
 
-    public void print() {
-        System.out.println(start.getX() + " ," + start.getY() + "; " + end.getX() + end.getY() + " : " + this.weight);
-    }
-
     @Override
     public int compareTo(Edge edge) {
         return this.weight - edge.weight;
+    }
+    
+    @Override
+    public String toString() {
+    	return start.getX() + ", " + start.getY() + " -- " + end.getX() + ", " + end.getY() + " : " + weight;
     }
 }
