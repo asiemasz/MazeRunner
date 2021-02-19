@@ -37,29 +37,40 @@ public class Maze {
 		
 		PrimsAlghoritm prim = new PrimsAlghoritm();
 		Random random = new Random();
-		int entranceIndex = random.nextInt(graphHeight);
-		int outranceIndex = 0;
+		int outranceIndex = graphHeight / 2;
+		int entranceIndex = 0;
 		
-		ArrayList<Edge> mstEdges = prim.getMstEdges(graph, graph.getNodes().get(entranceIndex));
+		ArrayList<Edge> mstEdges = prim.getMstEdges(graph, graph.getNodes().get(random.nextInt(graphHeight - 1) + 1));
 		for(Edge edge : mstEdges) {
-			if(edge.getEnd().getX() == graphWidth - 1) {
-				outranceIndex = edge.getEnd().getX();
+			
+			int x1 = edge.getStart().getX();
+			int y1 = edge.getStart().getY();
+			int x2 = edge.getEnd().getX();
+			int y2 = edge.getEnd().getY();
+			maze[y1 * 2 + 1][x1 * 2 + 1] = 0;
+			maze[y1 + y2 + 1][x1 + x2 + 1] = 0;
+			maze[y2 * 2 + 1][x2 * 2 + 1] = 0;
+			if(x1 == 1) {
+				entranceIndex = y1 * 2 + 1;
 			}
-			else if(edge.getStart().getX() == graphWidth - 1) {
-				outranceIndex = edge.getStart().getX();
+			if(x1 * 2 + 1 == width - 2) {
+				outranceIndex = y1 * 2 + 1;
 			}
-			int y1 = edge.getStart().getY() / graphHeight * 2 + 1;
-            int x1 = (edge.getStart().getX() % graphWidth) * 2 + 1;
-            int y2 = edge.getEnd().getY() / graphHeight * 2 + 1;
-            int x2 = (edge.getEnd().getX() % graphWidth) * 2 + 1;
-            int y = y1 == y2 ? y1 : (y1 + y2) / 2;
-            int x = x1 == x2 ? x1 : (x1 + x2) / 2;
-            maze[y][x] = 0;
-            maze[y1][x1] = 0;
-            maze[y2][x2] = 0;
+			else if(x2 * 2 + 1 == width - 2) {
+				outranceIndex = y2 * 2 + 1;
+			}
+			else if(x1 + x2 + 1 == width - 2) {
+				outranceIndex = y1 + y2 + 1;
+			}
+			
 		}
+
 		maze[entranceIndex][0] = 0;
 		maze[outranceIndex][width - 1] = 0;
+		if(width % 2 == 0) {
+			maze[outranceIndex][width - 2] = 0;
+		}
+		
 	}
 	
 	
