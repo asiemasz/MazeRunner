@@ -7,14 +7,33 @@ public class Graph {
     ArrayList<Edge> edges;
     int size;
 
-
     public Graph() {
         size = 0;
         nodes = new ArrayList<>();
         edges = new ArrayList<>();
     }
+    
+    
 
-    public void addNode(Node node) {
+    public ArrayList<Node> getNodes() {
+		return nodes;
+	}
+
+
+
+	public ArrayList<Edge> getEdges() {
+		return edges;
+	}
+
+
+
+	public int getSize() {
+		return size;
+	}
+
+
+
+	public void addNode(Node node) {
         nodes.add(node);
         size++;
     }
@@ -59,4 +78,15 @@ public class Graph {
         }
 	*/
     }
+    public int[][] getAdjacencyMatrix(){
+    	int[][] adjMatrix = new int[size][size];
+    	int id1, id2;
+    	for(int i = 0; i < edges.size(); i++) {
+    		id1 = edges.get(i).getStart().getId();
+    		id2 = edges.get(i).getEnd().getId();
+    		adjMatrix[id1][id2] = adjMatrix[id2][id1] = edges.get(i).getWeight();
+    	}
+    	return adjMatrix;
+    }
+    
 }
