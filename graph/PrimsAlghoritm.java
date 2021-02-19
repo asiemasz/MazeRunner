@@ -14,7 +14,7 @@ public class PrimsAlghoritm implements MST {
 		boolean[] selected = new boolean[adjMatrix.length];
 		Arrays.fill(selected, false);
 		
-		if (!gr.getNodes().contains(startNode) || startNode.getX() != 0) {
+		if (startNode.getX() != 0) {
 			throw new IllegalArgumentException("Illegal starting node");
 		}
 		
