@@ -1,11 +1,13 @@
 package UI;
 
 import java.util.Scanner;
+import maze.Maze;
 
 public class Menu {
 	private String[] options;
 	private int selectedOption;
 	private boolean mazeLoaded = false;
+	Maze maze;
 	
 	public Menu() {
 		options = new String[5];
