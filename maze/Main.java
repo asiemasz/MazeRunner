@@ -1,11 +1,16 @@
 package maze;
 
+import UI.Menu;
+
 public class Main {
 
 	public static void main(String[] args) {
-		Maze maze = new Maze(100,60);
-		maze.generate();
-		maze.print();
+		Menu menu = new Menu();
+		while(true) {
+			menu.print();
+			menu.selectOption();
+			menu.doAction();
+		}
 	}
 
 }
