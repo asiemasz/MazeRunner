@@ -19,6 +19,13 @@ public class Maze {
 		}
 	}
 	
+	public Maze(int height, int width, int[][] maze) {
+		super();
+		this.height = height;
+		this.width = width;
+		this.maze = maze;
+	}
+
 	public void print() {
 		for (int i = 0; i < height; i++ ) {
 			for (int j = 0; j < width; j++) {
@@ -83,6 +90,18 @@ public class Maze {
 
 	public int[][] getMaze() {
 		return maze;
+	}
+	
+	@Override
+	public String toString() {
+		String result = new String();
+		for(int i = 0; i < maze.length; i++) {
+			for(int j = 0; j < maze[i].length; j++) {
+				result += maze[i][j];
+			}
+			result += "\n";
+		}
+		return result;
 	}
 	
 	
