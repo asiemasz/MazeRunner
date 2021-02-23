@@ -2,12 +2,14 @@ package UI;
 
 import java.util.Scanner;
 import maze.Maze;
+import UI.MazeFile;
 
 public class Menu {
 	private String[] options;
 	private int selectedOption;
-	private boolean mazeLoaded = false;
+	private boolean mazeExists = false;
 	Maze maze;
+	Scanner sc;
 	
 	public Menu() {
 		options = new String[5];
@@ -16,10 +18,11 @@ public class Menu {
 		options[2] = "3. Save the maze";
 		options[3] = "4. Display the maze";
 		options[4] = "0. Exit";
+		sc = new Scanner(System.in);
 	}
 	
 	public void print() {
-		int size = mazeLoaded == false ? 3 : 5;
+		int size = mazeExists == false ? 3 : 5;
 		System.out.println("=== Menu ===");
 		for(int i = 0; i < size - 1; i++) {
 			System.out.println(options[i]);
@@ -28,13 +31,14 @@ public class Menu {
 	}
 	
 	public void selectOption() {
-		Scanner sc = new Scanner(System.in);
 		int x = -1;
 		try {
 			x = sc.nextInt();
-			if (x < 0 || x > ( mazeLoaded ? 4 : 2 )) {
+			sc.nextLine();
+			if (x < 0 || x > ( mazeExists ? 4 : 2 )) {
 				throw new IllegalArgumentException("Incorrect option. Please try again");
 			}
+			selectedOption = x;
 		}
 		catch(IllegalArgumentException e) {
 			System.out.println(e.getMessage());
@@ -42,28 +46,59 @@ public class Menu {
 		catch(Exception e) {
 			System.out.println("Incorrect option. Please try again");
 		}
-		finally {
-			sc.close();
-		}
-		selectedOption = x;
 	}
 	
 	public void doAction() {
 		switch(selectedOption) {
 		case 0:
-			//exit
+			programExit();
 			break;
 		case 1:
-			//generateMaze
+			generateMaze();
+			break;
 		case 2:
-			//load a maze
+			loadMaze();
+			break;
 		case 3:
-			//save a maze
+			saveMaze();
+			break;
 		case 4:
-			//display maze
+			maze.print();
+			break;
 		default:
 			throw new RuntimeException("Something's wrong - doAction()");
 		}
+	}
+	
+	private void programExit() {
+		java.lang.System.exit(0);
+		sc.close();
+	}
+	
+	private void generateMaze() {
+		System.out.println("Enter the size of a new maze");
+		int x = Integer.parseInt(sc.nextLine());
+		maze = new Maze(x, x);
+		maze.generate();
+		mazeExists = true;
+		maze.print();
+	}
+	
+	private void loadMaze() {
+		String filename = sc.nextLine();
+		MazeFile  mazefile = new MazeFile();
+		mazefile.loadFile(filename);
+		maze = mazefile.getMaze();
+		mazeExists = true;
+		
+	}
+	
+	private void saveMaze() {
+		while(!sc.hasNextLine());
+		String filename = sc.nextLine();
+		MazeFile mazefile = new MazeFile();
+		mazefile.setMaze(maze);
+		mazefile.saveFile(filename);
 	}
 	
 }
