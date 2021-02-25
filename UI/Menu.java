@@ -12,22 +12,23 @@ public class Menu {
 	Scanner sc;
 	
 	public Menu() {
-		options = new String[5];
+		options = new String[6];
 		options[0] = "1. Generate a new maze";
 		options[1] = "2. Load a maze";
 		options[2] = "3. Save the maze";
 		options[3] = "4. Display the maze";
-		options[4] = "0. Exit";
+		options[4] = "5. Find the escape";
+		options[5] = "0. Exit";
 		sc = new Scanner(System.in);
 	}
 	
 	public void print() {
-		int size = mazeExists == false ? 3 : 5;
+		int size = mazeExists == false ? 3 : 6;
 		System.out.println("=== Menu ===");
 		for(int i = 0; i < size - 1; i++) {
 			System.out.println(options[i]);
 		}
-		System.out.println(options[4]);
+		System.out.println(options[5]);
 	}
 	
 	public void selectOption() {
@@ -35,7 +36,7 @@ public class Menu {
 		try {
 			x = sc.nextInt();
 			sc.nextLine();
-			if (x < 0 || x > ( mazeExists ? 4 : 2 )) {
+			if (x < 0 || x > ( mazeExists ? 5 : 2 )) {
 				throw new IllegalArgumentException("Incorrect option. Please try again");
 			}
 			selectedOption = x;
@@ -65,6 +66,10 @@ public class Menu {
 		case 4:
 			maze.print();
 			break;
+		case 5:
+			/* maze.escape();
+			 * maze.print();
+			 */
 		default:
 			throw new RuntimeException("Something's wrong - doAction()");
 		}
