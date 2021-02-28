@@ -67,9 +67,9 @@ public class Menu {
 			maze.print();
 			break;
 		case 5:
-			/* maze.escape();
-			 * maze.print();
-			 */
+			printEscape();
+			break;
+			 
 		default:
 			throw new RuntimeException("Something's wrong - doAction()");
 		}
@@ -104,6 +104,25 @@ public class Menu {
 		MazeFile mazefile = new MazeFile();
 		mazefile.setMaze(maze);
 		mazefile.saveFile(filename);
+	}
+	
+	private void printEscape() {
+		try {
+			Maze solvedMaze = (Maze) maze.clone();
+			int [][] mazeArray = solvedMaze.getMaze();
+			int y = 0;
+			for (int i = 0; i < mazeArray.length; i++) {
+				if (mazeArray[i][0] == 0) {
+					y = i;
+					System.out.println(y);
+				}
+			}
+			solvedMaze.solveMaze(0, y);
+			solvedMaze.printSolvedMaze();
+		}
+		catch (CloneNotSupportedException e) {
+			System.out.print("NIE xD");
+		}
 	}
 	
 }
