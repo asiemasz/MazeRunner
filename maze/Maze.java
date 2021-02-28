@@ -5,7 +5,7 @@ import java.util.Random;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Maze {
+public class Maze implements Cloneable {
 	private int height;
 	private int width;
 	private int[][] maze;
@@ -103,6 +103,56 @@ public class Maze {
 		}
 		return result;
 	}
+	@Override
+	public Object clone() throws CloneNotSupportedException
+    {
+        return super.clone();
+    }
 	
+	public boolean solveMaze(int x, int y) {
+		if (x ==  width - 1) {
+			maze[y][x] = 2;
+			return true;
+		}
+		
+		if ( x >= 0 && y >= 0 && x < width && y < height && maze[y][x] == 0)
+		{
+			maze[y][x] = 2;
+			if (solveMaze(x + 1,y)) {
+				return true;
+			}
+			if (solveMaze(x, y + 1)) {
+				return true;
+			}
+			if (solveMaze(x - 1, y)) {
+				return true;
+			}
+			if (solveMaze(x, y - 1)) {
+				return true;
+			}
+			maze[y][x] = 0;
+			return false;
+		}
+		return false;
+	}
+	
+	public void printSolvedMaze() {
+		for (int i = 0; i < maze.length; i++) {
+			for (int j = 0; j < maze[0].length; j++) {
+				switch(maze[i][j]) {
+				case 0:
+					System.out.print("  ");
+					break;
+				case 1:
+					System.out.print("\u2588\u2588");
+					break;
+				case 2:
+					System.out.print("//");
+					break;
+				}
+			}
+			System.out.println();
+		}
+	}
 	
 }
