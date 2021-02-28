@@ -114,14 +114,13 @@ public class Menu {
 			for (int i = 0; i < mazeArray.length; i++) {
 				if (mazeArray[i][0] == 0) {
 					y = i;
-					System.out.println(y);
 				}
 			}
 			solvedMaze.solveMaze(0, y);
 			solvedMaze.printSolvedMaze();
 		}
 		catch (CloneNotSupportedException e) {
-			System.out.print("NIE xD");
+			System.out.print("CloneNotSupported (Maze)");
 		}
 	}
 	
